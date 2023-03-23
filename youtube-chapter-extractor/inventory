@@ -1,0 +1,8 @@
+[frontend]
+vm-lab-01       ansible_host=129.148.51.253
+
+[oracle:children]
+frontend
+
+[oracle:vars]
+ansible_user=ubuntu

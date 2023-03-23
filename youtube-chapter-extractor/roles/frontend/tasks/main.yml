@@ -1,0 +1,36 @@
+---
+- name: Atualiza pacotes
+  apt:
+    update_cache: true
+    cache_valid_time: 3600
+    force_apt_get: true
+- name: Instalar nginx
+  package:
+    name: nginx
+    state: present
+- name: Copia artefatos frontend
+  copy:
+    src: app-src/public/
+    dest: "{{ frontend_deploy_dest }}"
+  notify: Reiniciar o serviço do nginx
+- name: Habilita serviço nginx
+  service:
+    name: nginx
+    enabled: yes
+#    state: started
+- name: Configura o nginx para o frontend
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+    owner: root
+    group: root
+  notify: Reiniciar o serviço do nginx
+- name: Allow connections on multiple ports
+  tags: iptables
+  ansible.builtin.iptables:
+    chain: INPUT
+    protocol: tcp
+    destination_ports:
+      - "80"
+      - "443"
+    jump: ACCEPT
