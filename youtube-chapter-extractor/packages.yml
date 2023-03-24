@@ -1,0 +1,6 @@
+---
+- name: Instala pacotes
+  hosts: oracle
+  become: yes
+  roles:
+    - packages

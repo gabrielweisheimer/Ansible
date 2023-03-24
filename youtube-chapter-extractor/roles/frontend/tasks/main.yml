@@ -1,9 +1,4 @@
 ---
-- name: Atualiza pacotes
-  apt:
-    update_cache: true
-    cache_valid_time: 3600
-    force_apt_get: true
 - name: Instalar nginx
   package:
     name: nginx
@@ -25,7 +20,7 @@
     owner: root
     group: root
   notify: Reiniciar o serviço do nginx
-- name: Allow connections on multiple ports
+- name: Allow connections on http(s)
   tags: iptables
   ansible.builtin.iptables:
     chain: INPUT
