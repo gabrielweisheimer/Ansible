@@ -1,0 +1,20 @@
+---
+- name: Atualiza pacotes
+  apt:
+    update_cache: true
+    cache_valid_time: 604800
+    force_apt_get: true
+- name: Atualiza Timezone para SP
+  community.general.timezone:
+    name: America/Sao_Paulo
+- name: Install required packages
+  package:
+    name:
+      - telnet
+      - iputils-ping
+      - neovim
+      - git
+      - net-tools
+      - jq
+      - cron
+    state: present

@@ -1,0 +1,6 @@
+[lamp]
+vm-lab-01       ansible_host=129.148.46.85
+
+[lamp:vars]
+ansible_user=ubuntu
+ansible_ssh_private_key_file=/home/gabriel/.ssh/oracle-vm-lab-01
